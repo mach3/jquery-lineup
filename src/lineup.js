@@ -5,7 +5,7 @@
 			var items, currentTop, fixHeight;
 
 			items = [];
-			currentTop = 0;
+			currentTop = null;
 			fixHeight = function(){
 				var max = 0;
 
@@ -21,7 +21,7 @@
 			this.each(function(){
 				var node = $(this);
 
-				if(node.position().top !== currentTop){
+				if(currentTop !== null && node.position().top !== currentTop){
 					fixHeight();
 				}
 				currentTop = node.position().top;
