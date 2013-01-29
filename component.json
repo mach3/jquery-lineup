@@ -1,0 +1,8 @@
+{
+	"name" : "jQuery.lineUp",
+	"version" : "1.0.0",
+	"main" : "./jquery-lineup.js",
+	"dependencies" : {
+		"jquery" : null
+	}
+}

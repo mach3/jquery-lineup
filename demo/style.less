@@ -1,0 +1,20 @@
+
+
+@col-width: 200px;
+@gutter-width: 20px;
+@padding-width: 8px;
+
+.items {
+	position: relative;
+	font-size: 12px;
+	width: (@col-width + @gutter-width + (@padding-width * 2)) * 3;
+
+	.item {
+		width: @col-width;
+		padding: @padding-width;
+		margin-right: @gutter-width;
+		margin-bottom: @gutter-width;
+		float: left;
+		background-color: #eee;
+	}
+}
