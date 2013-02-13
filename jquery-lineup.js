@@ -3,13 +3,15 @@
  * -------------
  * Just fix heights of the cols in the same row.
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @author mach3ss
  * @require jQuery
  */
  
 
 (function($){
+
+	var selector;
 
 	$.fn.extend({
 		lineUp : function(){
@@ -41,5 +43,12 @@
 			fixHeight();
 		}
 	});
+
+	selector = $("script:last").data("lineupSelector");
+	if(selector){
+		$(function(){
+			$(selector).lineUp();
+		});
+	}
 
 }(jQuery));

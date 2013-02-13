@@ -1,5 +1,7 @@
 (function($){
 
+	var selector;
+
 	$.fn.extend({
 		lineUp : function(){
 			var items, currentTop, fixHeight;
@@ -30,5 +32,12 @@
 			fixHeight();
 		}
 	});
+
+	selector = $("script:last").data("lineupSelector");
+	if(selector){
+		$(function(){
+			$(selector).lineUp();
+		});
+	}
 
 }(jQuery));
