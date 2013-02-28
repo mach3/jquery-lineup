@@ -1,7 +1,7 @@
 {
 	"name" : "jquery-lineup",
-	"version" : "1.0.0",
-	"main" : ["./jquery-lineup.js", "jquery-lineup.min.js"],
+	"version" : "1.0.2",
+	"main" : ["./dist/jquery-lineup.js", "./dist/jquery-lineup.min.js"],
 	"dependencies" : {
 		"jquery" : null
 	}

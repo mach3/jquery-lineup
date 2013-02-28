@@ -1,4 +1,14 @@
-(function($){
+/*!
+ * jQuery.lineUp 
+ * -------------
+ * Just fix heights of the cols in the same row.
+ *
+ * @version 1.0.2
+ * @author mach3
+ * @url https://github.com/mach3/jquery-lineup
+ * @require jquery.js
+ */
+ (function($){
 
 	/**
 	 * LineUp

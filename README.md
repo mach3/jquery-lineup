@@ -1,7 +1,7 @@
 
 # jQuery.lineUp
 
-version 1.0.1
+version 1.0.2
 
 ## これはなに
 
@@ -38,6 +38,8 @@ $(".item").lineUp();
 jquery.lineup.js を読み込んだscript要素にdata-lineup-selector属性を設定する事で、
 ページ読み込み時にそのセレクタの要素に対して整列を行う事ができます。
 整列を行うタイミングは、domreadyです。
+
+尚、`.item-01, .item-02`のようにカンマで区切られたセレクタは、それぞれ別のグループとして扱われます。
 
 ```html
 <script src="jquery.lineup.js" data-lineup-selector=".item"></script>
