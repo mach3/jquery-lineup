@@ -1,0 +1,13 @@
+.items {
+  position: relative;
+  font-size: 12px;
+  width: 708px;
+}
+.items .item {
+  width: 200px;
+  padding: 8px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  float: left;
+  background-color: #eee;
+}

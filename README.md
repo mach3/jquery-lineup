@@ -1,15 +1,13 @@
 
 # jQuery.lineUp
 
-version 1.0.2
+version 1.0.3
 
 ## これはなに
 
 ブロック要素の高さを行ごとに揃えるjQueryプラグインです。
 
 ## 使い方
-
-### 基本的な使い方
 
 例えばフロート等で横並びにしている要素があるとして、
 
@@ -32,8 +30,39 @@ $(".item").lineUp();
 3カラムの場合は3カラムずつ、5カラムの場合は5カラムずつ高さを揃えます。
 行は jQuery.position().top の値から判断しています。
 
+## オプション
 
-### script要素のdata-*属性を利用した使い方
+オブジェクトを引数に渡すとオプションを設定できます。
+既に初期化済みの場合は、オプションを上書きして再度リフレッシュします。
+
+```js
+$(".item").lineUp({
+	onFontResize : false,
+	onResize : false
+});
+```
+
+※ オプションキー : 型 (初期値)
+
+### onFontResize : Boolean (true)
+
+フォントサイズ変更時に高さを更新する
+
+### checkFontInterval : Integer (10)
+
+フォントサイズチェックのインターバル
+
+### fontSamplerName : String (#lineup-font-size-sampler)
+
+フォントサイズチェック用の要素の名前を設定する
+
+### onResize : Boolean (true)
+
+ウィンドウサイズ変更時に高さを更新する
+
+
+
+## script要素のdata-*属性を利用した使い方
 
 jquery.lineup.js を読み込んだscript要素にdata-lineup-selector属性を設定する事で、
 ページ読み込み時にそのセレクタの要素に対して整列を行う事ができます。

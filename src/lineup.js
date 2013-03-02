@@ -6,24 +6,57 @@
 	 * Fix heights of the cols in the same row
 	 *
 	 * @class
+	 * @param String selector
+	 * @param Object option
 	 */
-	var LineUp = function(){
+	var LineUp = function(selector, option){
 
 		var my = this;
 
+		my.option = {
+			onFontResize : true,
+			checkFontInterval : 10,
+			fontSamplerName : "#lineup-font-size-sampler",
+			onResize : true
+		};
+
 		my.nodes = null;
+		my.checkFontTimer = null;
+		my.sampler = null;
 
 		/**
 		 * Initialize with selector
 		 *
 		 * @constructor
 		 * @param String selector
+		 * @param Object option
 		 * @return LineUp
 		 */
-		my.init = function(selector){
+		my.init = function(selector, option){
 			this.nodes = $(selector);
+			this.config(option);
 			this.refresh();
+
+			if(this.option.onResize){
+				$(window).on("resize", $.proxy(this.refresh, this));
+			}
+			if(this.option.onFontResize){
+				this.onFontResize($.proxy(this.refresh, this));
+			}
+
 			return this;
+		};
+
+		/**
+		 * Configure option
+		 *
+		 * @param Object option
+		 */
+		my.config = function(option){
+			console.log(option);
+			this.option = $.extend({}, this.option, option);
+
+			console.log(this.option);
 		};
 
 		/**
@@ -33,6 +66,8 @@
 		 */
 		my.refresh = function(){
 			var items, currentTop, fixHeight;
+
+			console.log("refresh");
 
 			items = [];
 			currentTop = null;
@@ -72,6 +107,39 @@
 			return this;
 		};
 
+		/**
+		 * Run callback on font size changed
+		 * 
+		 * @param Function callback
+		 * @return LineUp
+		 */
+		my.onFontResize = function(callback){
+			var self, check;
+
+			self = this;
+			this.sampler = $(this.option.fontSamplerName);
+			check = function(){
+				var height = self.sampler.height();
+				if(self.sampler.data("size") !== height){
+					callback();
+					self.sampler.data("size", height);
+				}
+			};
+
+			if(! this.sampler.length){
+				this.sampler = $("<span>")
+				.text("M")
+				.css({
+					position : "absolute",
+					visibility : "hidden"
+				})
+				.attr("id", this.option.fontSamplerName)
+				.appendTo($("body"));
+			}
+			this.sampler.data("size", this.sampler.height());
+			this.checkFontTimer = setInterval(check, this.option.checkFontInterval);
+		};
+
 		my.init.apply(this, arguments);
 	};
 
@@ -79,8 +147,18 @@
 	 * jquery.fn.lineUp
 	 */
 	$.fn.extend({
-		lineUp : function(){
-			$(this).data("lineUp", new LineUp(this.selector));
+		lineUp : function(option){
+			var node, lineup;
+
+			node = $(this);
+			lineup = node.data("lineUp");
+
+			if(lineup instanceof LineUp){
+				lineup.config(option);
+				lineup.refresh();
+			} else {
+				node.data("lineUp", new LineUp(this.selector, option));
+			}
 		}
 	});
 

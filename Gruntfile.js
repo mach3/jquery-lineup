@@ -11,6 +11,7 @@ module.exports = function(grunt){
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-contrib-less");
 
 	grunt.initConfig({
 		concat : {
@@ -25,6 +26,23 @@ module.exports = function(grunt){
 			dist : {
 				src : "./src/lineup.js",
 				dest : "./dist/jquery-lineup.min.js"
+			}
+		},
+		watch : {
+			less : {
+				files : "./demo/less/*.less",
+				tasks : "less:demo"
+			}
+		},
+		less : {
+			demo : {
+				files : {
+					"./demo/css/normal.css" : "./demo/less/normal.less",
+					"./demo/css/liquid.css" : [
+						"./demo/less/normal.less",
+						"./demo/less/liquid.less"
+					]
+				}
 			}
 		}
 	});
