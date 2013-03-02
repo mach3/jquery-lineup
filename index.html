@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jquery-lineup by mach3</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/mach3/jquery-lineup">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/mach3/jquery-lineup/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/mach3/jquery-lineup/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>jquery-lineup</h1>
+          <p>Just fix heights of the cols in the same row.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/mach3">mach3</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>jQuery.lineUp</h1>
+
+<p>version 1.0.3</p>
+
+<h2>これはなに</h2>
+
+<p>ブロック要素の高さを行ごとに揃えるjQueryプラグインです。</p>
+
+<h2>使い方</h2>
+
+<p>例えばフロート等で横並びにしている要素があるとして、</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
+    ...
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<p>これらの要素（.item）の高さを行ごとに揃えます。</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">();</span>
+</pre></div>
+
+<p>3カラムの場合は3カラムずつ、5カラムの場合は5カラムずつ高さを揃えます。
+行は jQuery.position().top の値から判断しています。</p>
+
+<h2>オプション</h2>
+
+<p>オブジェクトを引数に渡すとオプションを設定できます。
+既に初期化済みの場合は、オプションを上書きして再度リフレッシュします。</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">({</span>
+    <span class="nx">onFontResize</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">onResize</span> <span class="o">:</span> <span class="kc">false</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>※ オプションキー : 型 (初期値)</p>
+
+<h3>onFontResize : Boolean (true)</h3>
+
+<p>フォントサイズ変更時に高さを更新する</p>
+
+<h3>checkFontInterval : Integer (10)</h3>
+
+<p>フォントサイズチェックのインターバル</p>
+
+<h3>fontSamplerName : String (#lineup-font-size-sampler)</h3>
+
+<p>フォントサイズチェック用の要素の名前を設定する</p>
+
+<h3>onResize : Boolean (true)</h3>
+
+<p>ウィンドウサイズ変更時に高さを更新する</p>
+
+<h2>script要素のdata-*属性を利用した使い方</h2>
+
+<p>jquery.lineup.js を読み込んだscript要素にdata-lineup-selector属性を設定する事で、
+ページ読み込み時にそのセレクタの要素に対して整列を行う事ができます。
+整列を行うタイミングは、domreadyです。</p>
+
+<p>尚、<code>.item-01, .item-02</code>のようにカンマで区切られたセレクタは、それぞれ別のグループとして扱われます。</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.lineup.js"</span> <span class="na">data-lineup-selector=</span><span class="s">".item"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<h2>作者</h2>
+
+<p>mach3</p>
+
+<ul>
+<li><a href="http://blog.mach3.jp">Blog</a></li>
+<li><a href="http://www.mach3.jp">Website</a></li>
+<li><a href="http://twitter.com/mach3ss">Twitter</a></li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
