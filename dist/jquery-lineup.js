@@ -63,10 +63,7 @@
 		 * @param Object option
 		 */
 		my.config = function(option){
-			console.log(option);
 			this.option = $.extend({}, this.option, option);
-
-			console.log(this.option);
 		};
 
 		/**
@@ -76,8 +73,6 @@
 		 */
 		my.refresh = function(){
 			var items, currentTop, fixHeight;
-
-			console.log("refresh");
 
 			items = [];
 			currentTop = null;
@@ -113,7 +108,7 @@
 		 * @return LineUp
 		 */
 		my.reset = function(){
-			my.nodes.css("height", "");
+			this.nodes.css("height", "");
 			return this;
 		};
 
@@ -124,15 +119,14 @@
 		 * @return LineUp
 		 */
 		my.onFontResize = function(callback){
-			var self, check;
+			var check;
 
-			self = this;
 			this.sampler = $(this.option.fontSamplerName);
 			check = function(){
-				var height = self.sampler.height();
-				if(self.sampler.data("size") !== height){
+				var height = my.sampler.height();
+				if(my.sampler.data("size") !== height){
 					callback();
-					self.sampler.data("size", height);
+					my.sampler.data("size", height);
 				}
 			};
 
