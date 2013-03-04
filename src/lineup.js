@@ -129,8 +129,6 @@
 				})
 				.attr("id", this.option.fontSamplerName)
 				.appendTo($("body"));
-
-				console.log(this.sampler);
 			}
 			this.sampler.data("size", this.sampler.height());
 			this.checkFontTimer = setInterval(check, this.option.checkFontInterval);
