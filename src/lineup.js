@@ -16,7 +16,7 @@
 		my.option = {
 			onFontResize : true,
 			checkFontInterval : 10,
-			fontSamplerName : "#lineup-font-size-sampler",
+			fontSamplerName : "lineup-font-size-sampler",
 			onResize : true
 		};
 
@@ -111,7 +111,7 @@
 		my.onFontResize = function(callback){
 			var check;
 
-			this.sampler = $(this.option.fontSamplerName);
+			this.sampler = $("#" + this.option.fontSamplerName);
 			check = function(){
 				var height = my.sampler.height();
 				if(my.sampler.data("size") !== height){
@@ -129,6 +129,8 @@
 				})
 				.attr("id", this.option.fontSamplerName)
 				.appendTo($("body"));
+
+				console.log(this.sampler);
 			}
 			this.sampler.data("size", this.sampler.height());
 			this.checkFontTimer = setInterval(check, this.option.checkFontInterval);

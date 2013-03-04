@@ -52,9 +52,9 @@ $(".item").lineUp({
 
 フォントサイズチェックのインターバル
 
-### fontSamplerName : String (#lineup-font-size-sampler)
+### fontSamplerName : String (lineup-font-size-sampler)
 
-フォントサイズチェック用の要素の名前を設定する
+フォントサイズチェック用の要素のidを設定する
 
 ### onResize : Boolean (true)
 
