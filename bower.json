@@ -3,6 +3,6 @@
 	"version" : "1.0.3",
 	"main" : ["./dist/jquery-lineup.js", "./dist/jquery-lineup.min.js"],
 	"dependencies" : {
-		"jquery" : null
+		"jquery" : "*"
 	}
 }
