@@ -35,22 +35,20 @@
           <p>Just fix heights of the cols in the same row.</p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/mach3">mach3</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h1>jQuery.lineUp</h1>
-
-<p>version 1.0.3</p>
-
-<h2>これはなに</h2>
+        <h1>
+<a name="jquerylineup" class="anchor" href="#jquerylineup"><span class="octicon octicon-link"></span></a>jQuery.lineUp</h1>
 
 <p>ブロック要素の高さを行ごとに揃えるjQueryプラグインです。</p>
 
-<h2>使い方</h2>
+<h2>
+<a name="%E4%BD%BF%E3%81%84%E6%96%B9" class="anchor" href="#%E4%BD%BF%E3%81%84%E6%96%B9"><span class="octicon octicon-link"></span></a>使い方</h2>
 
 <p>例えばフロート等で横並びにしている要素があるとして、</p>
 
-<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"items"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span> ... <span class="nt">&lt;/div&gt;</span>
@@ -61,18 +59,19 @@
 
 <p>これらの要素（.item）の高さを行ごとに揃えます。</p>
 
-<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">();</span>
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">();</span>
 </pre></div>
 
 <p>3カラムの場合は3カラムずつ、5カラムの場合は5カラムずつ高さを揃えます。
-行は jQuery.position().top の値から判断しています。</p>
+行は jQuery.offset().top の値から判断しています。</p>
 
-<h2>オプション</h2>
+<h2>
+<a name="%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3" class="anchor" href="#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3"><span class="octicon octicon-link"></span></a>オプション</h2>
 
 <p>オブジェクトを引数に渡すとオプションを設定できます。
 既に初期化済みの場合は、オプションを上書きして再度リフレッシュします。</p>
 
-<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">({</span>
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".item"</span><span class="p">).</span><span class="nx">lineUp</span><span class="p">({</span>
     <span class="nx">onFontResize</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nx">onResize</span> <span class="o">:</span> <span class="kc">false</span>
 <span class="p">});</span>
@@ -80,23 +79,28 @@
 
 <p>※ オプションキー : 型 (初期値)</p>
 
-<h3>onFontResize : Boolean (true)</h3>
+<h3>
+<a name="onfontresize--boolean-true" class="anchor" href="#onfontresize--boolean-true"><span class="octicon octicon-link"></span></a>onFontResize : Boolean (true)</h3>
 
 <p>フォントサイズ変更時に高さを更新する</p>
 
-<h3>checkFontInterval : Integer (10)</h3>
+<h3>
+<a name="checkfontinterval--integer-10" class="anchor" href="#checkfontinterval--integer-10"><span class="octicon octicon-link"></span></a>checkFontInterval : Integer (10)</h3>
 
 <p>フォントサイズチェックのインターバル</p>
 
-<h3>fontSamplerName : String (lineup-font-size-sampler)</h3>
+<h3>
+<a name="fontsamplername--string-lineup-font-size-sampler" class="anchor" href="#fontsamplername--string-lineup-font-size-sampler"><span class="octicon octicon-link"></span></a>fontSamplerName : String (lineup-font-size-sampler)</h3>
 
 <p>フォントサイズチェック用の要素のidを設定する</p>
 
-<h3>onResize : Boolean (true)</h3>
+<h3>
+<a name="onresize--boolean-true" class="anchor" href="#onresize--boolean-true"><span class="octicon octicon-link"></span></a>onResize : Boolean (true)</h3>
 
 <p>ウィンドウサイズ変更時に高さを更新する</p>
 
-<h2>script要素のdata-*属性を利用した使い方</h2>
+<h2>
+<a name="script%E8%A6%81%E7%B4%A0%E3%81%AEdata-%E5%B1%9E%E6%80%A7%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E4%BD%BF%E3%81%84%E6%96%B9" class="anchor" href="#script%E8%A6%81%E7%B4%A0%E3%81%AEdata-%E5%B1%9E%E6%80%A7%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E4%BD%BF%E3%81%84%E6%96%B9"><span class="octicon octicon-link"></span></a>script要素のdata-*属性を利用した使い方</h2>
 
 <p>jquery.lineup.js を読み込んだscript要素にdata-lineup-selector属性を設定する事で、
 ページ読み込み時にそのセレクタの要素に対して整列を行う事ができます。
@@ -104,10 +108,11 @@
 
 <p>尚、<code>.item-01, .item-02</code>のようにカンマで区切られたセレクタは、それぞれ別のグループとして扱われます。</p>
 
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.lineup.js"</span> <span class="na">data-lineup-selector=</span><span class="s">".item"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.lineup.js"</span> <span class="na">data-lineup-selector=</span><span class="s">".item"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
-<h2>作者</h2>
+<h2>
+<a name="%E4%BD%9C%E8%80%85" class="anchor" href="#%E4%BD%9C%E8%80%85"><span class="octicon octicon-link"></span></a>作者</h2>
 
 <p>mach3</p>
 
