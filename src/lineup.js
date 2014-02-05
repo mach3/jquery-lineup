@@ -81,10 +81,10 @@
 			this.nodes.each(function(){
 				var node = $(this);
 
-				if(currentTop !== null && node.position().top !== currentTop){
+				if(currentTop !== null && node.offset().top !== currentTop){
 					fixHeight();
 				}
-				currentTop = node.position().top;
+				currentTop = node.offset().top;
 				items.push(this);
 			});
 			fixHeight();

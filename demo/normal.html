@@ -6,14 +6,15 @@
 	<link rel="stylesheet" href="./css/normal.css">
 </head>
 <body>
+
 	<h1>
 		jQuery.lineUp DEMO
 	</h1>
+
 	<p>
 		<button id="button-run">RUN</button>
 		<button id="button-reset">RESET</button>
 	</p>
-
 
 	<div class="items">
 		<div class="item">
@@ -63,10 +64,9 @@
 		</div>
 	</div>
 
-
-	<script type="text/javascript" src="../components/jquery/jquery.js"></script>
-	<script type="text/javascript" src="../src/lineup.js"></script>
-	<script type="text/javascript">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../src/lineup.js"></script>
+	<script>
 
 		$("#button-run").on("click", function(){
 			$(".item").lineUp();

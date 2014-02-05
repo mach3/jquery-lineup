@@ -3,7 +3,7 @@
  * -------------
  * Just fix heights of the cols in the same row.
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @author mach3
  * @url https://github.com/mach3/jquery-lineup
  * @require jquery.js
@@ -91,10 +91,10 @@
 			this.nodes.each(function(){
 				var node = $(this);
 
-				if(currentTop !== null && node.position().top !== currentTop){
+				if(currentTop !== null && node.offset().top !== currentTop){
 					fixHeight();
 				}
-				currentTop = node.position().top;
+				currentTop = node.offset().top;
 				items.push(this);
 			});
 			fixHeight();

@@ -1,12 +1,15 @@
 
 module.exports = function(grunt){
 
-	var component, options;
+	var info, options;
 
-	component = grunt.file.readJSON("./component.json");
+	info = grunt.file.readJSON("./package.json");
 	options = {
-		splitBanners : true,
-		banner : grunt.file.read("src/banner.js").replace("%{version}", component.version)
+		splitBanners: true,
+		banner: grunt.template.process(
+			grunt.file.read("src/banner.js"),
+			{ data: info }
+		)
 	};
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
@@ -26,12 +29,6 @@ module.exports = function(grunt){
 			dist : {
 				src : "./src/lineup.js",
 				dest : "./dist/jquery-lineup.min.js"
-			}
-		},
-		watch : {
-			less : {
-				files : "./demo/less/*.less",
-				tasks : "less:demo"
 			}
 		},
 		less : {

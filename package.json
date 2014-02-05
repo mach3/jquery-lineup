@@ -1,0 +1,33 @@
+{
+  "name": "jquery-lineup",
+  "version": "1.0.4",
+  "description": "Just fix heights of the cols in the same row.",
+  "main": "dist/jquery-lineup.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-less": "~0.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mach3/jquery-lineup.git"
+  },
+  "keywords": [
+    "jQuery",
+    "plugin",
+    "lineup",
+    "column"
+  ],
+  "author": "mach3",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "4b4ee2afafc67ce3be30270947db79cc6bc74aa8",
+  "bugs": {
+    "url": "https://github.com/mach3/jquery-lineup/issues"
+  }
+}

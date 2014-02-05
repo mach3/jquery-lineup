@@ -1,10 +1,6 @@
 
 # jQuery.lineUp
 
-version 1.0.3
-
-## これはなに
-
 ブロック要素の高さを行ごとに揃えるjQueryプラグインです。
 
 ## 使い方
@@ -28,7 +24,7 @@ $(".item").lineUp();
 ```
 
 3カラムの場合は3カラムずつ、5カラムの場合は5カラムずつ高さを揃えます。
-行は jQuery.position().top の値から判断しています。
+行は jQuery.offset().top の値から判断しています。
 
 ## オプション
 
@@ -59,8 +55,6 @@ $(".item").lineUp({
 ### onResize : Boolean (true)
 
 ウィンドウサイズ変更時に高さを更新する
-
-
 
 ## script要素のdata-*属性を利用した使い方
 
