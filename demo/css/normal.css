@@ -1,7 +1,7 @@
 .items {
   position: relative;
-  font-size: 12px;
   width: 708px;
+  font-size: 13px;
 }
 .items .item {
   width: 200px;

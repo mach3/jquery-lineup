@@ -3,7 +3,7 @@
  * -------------
  * Just fix heights of the cols in the same row.
  *
- * @version 1.0.4
+ * @version 1.1.0
  * @author mach3
  * @url https://github.com/mach3/jquery-lineup
  * @require jquery.js
@@ -19,63 +19,89 @@
 	 * @param String selector
 	 * @param Object option
 	 */
-	var LineUp = function(selector, option){
+	var LineUp = function(selector, options){
+		this.init.apply(this, arguments);
+	};
 
-		var my = this;
+	$.extend(true, LineUp.prototype, {
 
-		my.option = {
+		/**
+		 * Defaults Options
+		 *
+		 * - onFontResize :Boolean ... Refresh when font resized or not
+		 * - onResize :Boolean Refresh when window resized or not
+		 * - checkFontInterval :Integer ... Interval time for checking font size
+		 * - fontSamplerName :String ... ID name for font sampler element
+		 * - hook :Function ... Function called when columns' height refreshed
+		 */
+		defaults: {
 			onFontResize : true,
+			onResize : true,
 			checkFontInterval : 10,
 			fontSamplerName : "lineup-font-size-sampler",
-			onResize : true
-		};
+			hook: $.noop
+		},
 
-		my.nodes = null;
-		my.checkFontTimer = null;
-		my.sampler = null;
+		options: {},
+		nodes: null,
+		checkFontTimer: null,
+		sampler: null,
 
 		/**
 		 * Initialize with selector
 		 *
 		 * @constructor
 		 * @param String selector
-		 * @param Object option
-		 * @return LineUp
+		 * @param Object options
 		 */
-		my.init = function(selector, option){
+		init: function(selector, options){
 			this.nodes = $(selector);
-			this.config(option);
+			this.config(this.defaults).config(options);
 			this.refresh();
-
-			if(this.option.onResize){
+			if(this.get("onResize")){
 				$(window).on("resize", $.proxy(this.refresh, this));
 			}
-			if(this.option.onFontResize){
+			if(this.get("onFontResize")){
 				this.onFontResize($.proxy(this.refresh, this));
 			}
-
-			return this;
-		};
+		},
 
 		/**
-		 * Configure option
+		 * Configure options
 		 *
 		 * @param Object option
 		 */
-		my.config = function(option){
-			this.option = $.extend({}, this.option, option);
-		};
+		config: function(options){
+			$.extend(this.options, options);
+			return this;
+		},
+
+		/**
+		 * Getter for options
+		 *
+		 * @param String key
+		 */
+		get: function(key){
+			return this.options[key];
+		},
 
 		/**
 		 * Refresh the heights of elements for the selector
 		 *
 		 * @return LineUp
 		 */
-		my.refresh = function(){
-			var items, currentTop, fixHeight;
+		refresh: function(){
+			var nodes, items, currentTop, fixHeight;
 
+			nodes = this.nodes.toArray();
 			items = [];
 			currentTop = null;
+			hook = this.get("hook");
+			
+			nodes.sort(function(a, b){
+				return $(a).offset().top - $(b).offset().top;
+			});
+
 			fixHeight = function(){
 				var max = 0;
 
@@ -88,7 +114,8 @@
 				items = [];
 			};
 			this.reset();
-			this.nodes.each(function(){
+
+			$.each(nodes, function(){
 				var node = $(this);
 
 				if(currentTop !== null && node.offset().top !== currentTop){
@@ -99,29 +126,35 @@
 			});
 			fixHeight();
 
+			hook = this.get("hook");
+			if($.isFunction(hook)){
+				hook(this);
+			}
 			return this;
-		};
+		},
 
 		/**
 		 * Reset all the heights of elements for the selector
 		 * 
 		 * @return LineUp
 		 */
-		my.reset = function(){
+		reset: function(){
 			this.nodes.css("height", "");
 			return this;
-		};
+		},
 
 		/**
-		 * Run callback on font size changed
+		 * Run callback when font size changed
 		 * 
 		 * @param Function callback
 		 * @return LineUp
 		 */
-		my.onFontResize = function(callback){
-			var check;
+		onFontResize: function(){
+			var name, check, my = this;
 
-			this.sampler = $("#" + this.option.fontSamplerName);
+			name = this.get("fontSamplerName");
+			this.sampler = $("#" + name);
+
 			check = function(){
 				var height = my.sampler.height();
 				if(my.sampler.data("size") !== height){
@@ -137,21 +170,21 @@
 					position : "absolute",
 					visibility : "hidden"
 				})
-				.attr("id", this.option.fontSamplerName)
+				.attr("id", this.get("fontSamplerName"))
 				.appendTo($("body"));
 			}
 			this.sampler.data("size", this.sampler.height());
-			this.checkFontTimer = setInterval(check, this.option.checkFontInterval);
-		};
+			this.checkFontTimer = setInterval(check, this.get("checkFontInterval"));
+		}
 
-		my.init.apply(this, arguments);
-	};
+	});
+
 
 	/**
 	 * jquery.fn.lineUp
 	 */
 	$.fn.extend({
-		lineUp : function(option){
+		lineUp: function(option){
 			var node, lineup;
 
 			node = $(this);
@@ -165,6 +198,7 @@
 			}
 		}
 	});
+
 
 	/**
 	 * Run with parameter

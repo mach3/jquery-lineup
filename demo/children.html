@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>DEMO</title>
+	<link rel="stylesheet" href="css/children.css">
+</head>
+<body>
+	
+	<h1>
+		jQuery.lineUp DEMO
+	</h1>
+
+	<p>
+		<button id="button-run">RUN</button>
+		<button id="button-reset">RESET</button>
+	</p>
+
+	<ul class="items">
+		<li>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, voluptas cum est quaerat repudiandae id hic ipsa optio in quidem aspernatur tenetur ex earum enim ad recusandae suscipit! Ipsa, tenetur!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, aperiam, ullam, ab aliquam unde autem magnam at eum repellat enim earum mollitia deserunt porro possimus quam libero a delectus dolor!
+				</p>
+			</div>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, eius, inventore praesentium rerum distinctio incidunt explicabo hic earum laudantium molestias suscipit eos culpa officiis ducimus dignissimos placeat corrupti beatae nihil.
+				</p>
+			</div>
+		</li>
+		<li>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, eius, inventore praesentium rerum distinctio incidunt explicabo hic earum laudantium molestias suscipit eos culpa officiis ducimus dignissimos placeat corrupti beatae nihil.
+				</p>
+			</div>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, voluptas cum est quaerat repudiandae id hic ipsa optio in quidem aspernatur tenetur ex earum enim ad recusandae suscipit! Ipsa, tenetur!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, aperiam, ullam, ab aliquam unde autem magnam at eum repellat enim earum mollitia deserunt porro possimus quam libero a delectus dolor!
+				</p>
+			</div>
+		</li>
+		<li>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, eius, inventore praesentium rerum distinctio incidunt explicabo hic earum laudantium molestias suscipit eos culpa officiis ducimus dignissimos placeat corrupti beatae nihil.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, voluptas cum est quaerat repudiandae id hic ipsa optio in quidem aspernatur tenetur ex earum enim ad recusandae suscipit! Ipsa, tenetur!
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, voluptas cum est quaerat repudiandae id hic ipsa optio in quidem aspernatur tenetur ex earum enim ad recusandae suscipit! Ipsa, tenetur!
+				</p>
+			</div>
+			<div class="item">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, aperiam, ullam, ab aliquam unde autem magnam at eum repellat enim earum mollitia deserunt porro possimus quam libero a delectus dolor!
+				</p>
+			</div>
+		</li>
+	</ul>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../src/lineup.js"></script>
+	<script>
+
+		$("#button-run").on("click", function(){
+			$(".item").lineUp();
+		});
+
+		$("#button-reset").on("click", function(){
+			$(".item").attr("style", "");
+		});
+
+	</script>
+	
+</body>
+</html>

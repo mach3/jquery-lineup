@@ -1,0 +1,22 @@
+
+@import "vars";
+
+.items {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    font-size: @font-size;
+
+    li {
+        display: inline-block;
+        *zoom: 1;
+        vertical-align: top;
+        width: @col-width;
+        margin-right: @gutter-width;
+    }
+    .item {
+        background-color: @col-bg;
+        padding: @padding-width;
+        margin-bottom: @gutter-width;
+    }
+}

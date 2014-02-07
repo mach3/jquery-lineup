@@ -1,13 +1,10 @@
 
-
-@col-width: 200px;
-@gutter-width: 20px;
-@padding-width: 8px;
+@import "vars";
 
 .items {
 	position: relative;
-	font-size: 12px;
 	width: (@col-width + @gutter-width + (@padding-width * 2)) * 3;
+	font-size: @font-size;
 
 	.item {
 		width: @col-width;
@@ -18,3 +15,4 @@
 		background-color: #eee;
 	}
 }
+

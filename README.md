@@ -56,6 +56,10 @@ $(".item").lineUp({
 
 ウィンドウサイズ変更時に高さを更新する
 
+### hook : Function ($.noop)
+
+リフレッシュ時に呼ばれる関数
+
 ## script要素のdata-*属性を利用した使い方
 
 jquery.lineup.js を読み込んだscript要素にdata-lineup-selector属性を設定する事で、
