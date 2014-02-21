@@ -149,7 +149,7 @@
 		 * @param Function callback
 		 * @return LineUp
 		 */
-		onFontResize: function(){
+		onFontResize: function(callback){
 			var name, check, my = this;
 
 			name = this.get("fontSamplerName");
@@ -175,6 +175,7 @@
 			}
 			this.sampler.data("size", this.sampler.height());
 			this.checkFontTimer = setInterval(check, this.get("checkFontInterval"));
+			return this;
 		}
 
 	});
