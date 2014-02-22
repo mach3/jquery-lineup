@@ -10,211 +10,227 @@
  */
  (function($){
 
-	/**
-	 * LineUp
-	 * ------
-	 * Fix heights of the cols in the same row
-	 *
-	 * @class
-	 * @param String selector
-	 * @param Object option
-	 */
-	var LineUp = function(selector, options){
-		this.init.apply(this, arguments);
-	};
+    /**
+     * LineUp
+     * ------
+     * Fix heights of the cols in the same row
+     *
+     * @class
+     * @param String selector
+     * @param Object option
+     */
+    var LineUp = function(/* selector, options */){
+        this.init.apply(this, arguments);
+    };
 
-	$.extend(true, LineUp.prototype, {
+    $.extend(LineUp.prototype, {
 
-		/**
-		 * Defaults Options
-		 *
-		 * - onFontResize :Boolean ... Refresh when font resized or not
-		 * - onResize :Boolean Refresh when window resized or not
-		 * - checkFontInterval :Integer ... Interval time for checking font size
-		 * - fontSamplerName :String ... ID name for font sampler element
-		 * - hook :Function ... Function called when columns' height refreshed
-		 */
-		defaults: {
-			onFontResize : true,
-			onResize : true,
-			checkFontInterval : 10,
-			fontSamplerName : "lineup-font-size-sampler",
-			hook: $.noop
-		},
+        EVENT_FONT_RESIZE: "lineup.fontresize",
 
-		options: {},
-		nodes: null,
-		checkFontTimer: null,
-		sampler: null,
+        /**
+         * Defaults Options
+         *
+         * - onFontResize      :Boolean  ... Refresh when font resized or not
+         * - onResize          :Boolean  ... Refresh when window resized or not
+         * - checkFontInterval :Integer  ... Interval time for checking font size
+         * - fontSamplerName   :String   ... ID name for font sampler element
+         * - hook              :Function ... Function called when columns' height refreshed
+         */
+        defaults: {
+            onFontResize : true,
+            onResize : true,
+            checkFontInterval : 10,
+            fontSamplerName : "lineup-font-size-sampler",
+            hook: $.noop
+        },
 
-		/**
-		 * Initialize with selector
-		 *
-		 * @constructor
-		 * @param String selector
-		 * @param Object options
-		 */
-		init: function(selector, options){
-			this.nodes = $(selector);
-			this.config(this.defaults).config(options);
-			this.refresh();
-			if(this.get("onResize")){
-				$(window).on("resize", $.proxy(this.refresh, this));
-			}
-			if(this.get("onFontResize")){
-				this.onFontResize($.proxy(this.refresh, this));
-			}
-		},
+        options: {},
+        nodes: null,
+        sampler: null,
 
-		/**
-		 * Configure options
-		 *
-		 * @param Object option
-		 */
-		config: function(options){
-			$.extend(this.options, options);
-			return this;
-		},
+        /**
+         * Initialize with selector
+         *
+         * @constructor
+         * @param String selector
+         * @param Object options
+         */
+        init: function(selector, options){
+            // configure, initialize
+            this.nodes = $(selector);
+            this.options = {};
+            this.config(this.defaults).config(options);
+            this.refresh();
 
-		/**
-		 * Getter for options
-		 *
-		 * @param String key
-		 */
-		get: function(key){
-			return this.options[key];
-		},
+            // handlers
+            if(this.get("onResize")){
+                $(window).on("resize", $.proxy(this.refresh, this));
+            }
+            if(this.get("onFontResize")){
+                this.sampler = this.getFontSampler();
+                this.sampler.on(this.EVENT_FONT_RESIZE, $.proxy(this.refresh, this));
+            }
+        },
 
-		/**
-		 * Refresh the heights of elements for the selector
-		 *
-		 * @return LineUp
-		 */
-		refresh: function(){
-			var nodes, items, currentTop, fixHeight;
+        /**
+         * Configure options
+         *
+         * @param Object option
+         */
+        config: function(options){
+            $.extend(this.options, options);
+            return this;
+        },
 
-			nodes = this.nodes.toArray();
-			items = [];
-			currentTop = null;
-			hook = this.get("hook");
-			
-			nodes.sort(function(a, b){
-				return $(a).offset().top - $(b).offset().top;
-			});
+        /**
+         * Getter for options
+         *
+         * @param String key
+         */
+        get: function(key){
+            return this.options[key];
+        },
 
-			fixHeight = function(){
-				var max = 0;
+        /**
+         * Refresh the heights of elements for the selector
+         *
+         * @return LineUp
+         */
+        refresh: function(){
+            var nodes, items, currentTop, hook, fixHeight;
 
-				$(items).each(function(){
-					max = Math.max(max, $(this).height());
-				})
-				.each(function(){
-					$(this).height(max);
-				});
-				items = [];
-			};
-			this.reset();
+            nodes = this.nodes.toArray();
+            items = [];
+            currentTop = null;
+            hook = this.get("hook");
+            
+            // sort by offset
+            nodes.sort(function(a, b){
+                return $(a).offset().top - $(b).offset().top;
+            });
 
-			$.each(nodes, function(){
-				var node = $(this);
+            // fix column size by row
+            fixHeight = function(){
+                var max = 0;
 
-				if(currentTop !== null && node.offset().top !== currentTop){
-					fixHeight();
-				}
-				currentTop = node.offset().top;
-				items.push(this);
-			});
-			fixHeight();
+                $(items).each(function(){
+                    max = Math.max(max, $(this).height());
+                })
+                .each(function(){
+                    $(this).height(max);
+                });
+                items = [];
+            };
+            this.reset();
 
-			hook = this.get("hook");
-			if($.isFunction(hook)){
-				hook(this);
-			}
-			return this;
-		},
+            $.each(nodes, function(){
+                var node = $(this);
 
-		/**
-		 * Reset all the heights of elements for the selector
-		 * 
-		 * @return LineUp
-		 */
-		reset: function(){
-			this.nodes.css("height", "");
-			return this;
-		},
+                if(currentTop !== null && node.offset().top !== currentTop){
+                    fixHeight();
+                }
+                currentTop = node.offset().top;
+                items.push(this);
+            });
+            fixHeight();
 
-		/**
-		 * Run callback when font size changed
-		 * 
-		 * @param Function callback
-		 * @return LineUp
-		 */
-		onFontResize: function(callback){
-			var name, check, my = this;
+            if($.isFunction(hook)){
+                hook(this);
+            }
+            return this;
+        },
 
-			name = this.get("fontSamplerName");
-			this.sampler = $("#" + name);
+        /**
+         * Reset all the heights of elements for the selector
+         * 
+         * @return LineUp
+         */
+        reset: function(){
+            this.nodes.css("height", "");
+            return this;
+        },
 
-			check = function(){
-				var height = my.sampler.height();
-				if(my.sampler.data("size") !== height){
-					callback();
-					my.sampler.data("size", height);
-				}
-			};
+        /**
+         * Get font sampler node
+         *
+         * @return jQuery
+         */
+        getFontSampler: function(){
+            var name, node, process;
 
-			if(! this.sampler.length){
-				this.sampler = $("<span>")
-				.text("M")
-				.css({
-					position : "absolute",
-					visibility : "hidden"
-				})
-				.attr("id", this.get("fontSamplerName"))
-				.appendTo($("body"));
-			}
-			this.sampler.data("size", this.sampler.height());
-			this.checkFontTimer = setInterval(check, this.get("checkFontInterval"));
-			return this;
-		}
+            name = this.get("fontSamplerName");
+            node = $("#" + name);
 
-	});
+            // already created ?
+            if(node.length){
+                return node;
+            }
 
+            // create sampler node
+            node = $("<span>").text("M").css({
+                position: "absolute",
+                visibility: "hidden"
+            })
+            .attr("id", name)
+            .appendTo("body");
+            node.data("height", node.height());
 
-	/**
-	 * jquery.fn.lineUp
-	 */
-	$.fn.extend({
-		lineUp: function(option){
-			var node, lineup;
+            // check by interval
+            process = function(eventName){
+                var height = this.height();
+                if(this.data("height") !== height){
+                    this.trigger(eventName);
+                    this.data("height", height);
+                }
+            };
 
-			node = $(this);
-			lineup = node.data("lineUp");
+            node.data(
+                setInterval(
+                    $.proxy(process, node, this.EVENT_FONT_RESIZE),
+                    this.get("checkFontInterval")
+                )
+            );
 
-			if(lineup instanceof LineUp){
-				lineup.config(option);
-				lineup.refresh();
-			} else {
-				node.data("lineUp", new LineUp(this.selector, option));
-			}
-		}
-	});
+            return node;
+        }
+
+    });
 
 
-	/**
-	 * Run with parameter
-	 *
-	 * @example
-	 *   <script src="lineup.js" data-selector=".item-a, .item-b"></script>
-	 */
-	(function(){
-		var selector = $("script:last").data("lineupSelector");
+    /**
+     * jquery.fn.lineUp
+     */
+    $.fn.extend({
+        lineUp: function(option){
+            var node, lineup;
 
-		if(selector){
-			$.each(selector.split(","), function(index, value){
-				$(value).lineUp();
-			});
-		}
-	}());
+            node = $(this);
+            lineup = node.data("lineUp");
+
+            if(lineup instanceof LineUp){
+                lineup.config(option);
+                lineup.refresh();
+            } else {
+                node.data("lineUp", new LineUp(this.selector, option));
+            }
+        }
+    });
+
+
+    /**
+     * Run with parameter
+     *
+     * @example
+     *   <script src="lineup.js" data-selector=".item-a, .item-b"></script>
+     */
+    (function(){
+        var selector = $("script:last").data("lineupSelector");
+
+        if(selector){
+            $.each(selector.split(","), function(index, value){
+                $(value).lineUp();
+            });
+        }
+    }());
 
 }(jQuery));
