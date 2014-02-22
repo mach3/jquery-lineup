@@ -3,7 +3,7 @@
  * -------------
  * Just fix heights of the cols in the same row.
  *
- * @version 1.1.1
+ * @version 1.1.2
  * @author mach3
  * @url https://github.com/mach3/jquery-lineup
  * @require jquery.js
